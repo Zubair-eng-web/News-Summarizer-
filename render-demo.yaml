@@ -1,0 +1,41 @@
+# Public read-only demo. Render me: New > Blueprint > is file ka path "render-demo.yaml" dein.
+# Demo SQLite use karta hai; har start par sample data khud bhar jata hai.
+services:
+  - type: web
+    name: ai-briefing-demo-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m scripts.seed_demo && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DEMO_MODE
+        value: "true"
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_URL
+        value: sqlite:///demo.db
+      - key: TRUST_PROXY_HEADERS
+        value: "true"
+      - key: USE_EMBEDDINGS
+        value: "false"
+      - key: INCLUDE_VIDEOS
+        value: "false"
+      - key: GEMINI_API_KEY
+        sync: false   # optional: chat/research sirf tab chalenge jab key ho
+
+  - type: web
+    name: ai-briefing-demo-dashboard
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: API_URL
+        sync: false   # demo API ka URL

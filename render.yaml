@@ -1,0 +1,59 @@
+services:
+  - type: web
+    name: ai-briefing-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: LLM_MODEL
+        value: gemini-2.5-flash
+      - key: USE_EMBEDDINGS
+        value: "true"
+      - key: INCLUDE_VIDEOS
+        value: "true"
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_RECEIVER
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: INTERESTS
+        sync: false
+      - key: AUTH_SECRET
+        sync: false
+      - key: TRUST_PROXY_HEADERS
+        value: "true"
+      - key: DEBUG
+        value: "false"
+      - key: AUTH_RATE_LIMIT
+        value: "30"
+
+  - type: web
+    name: ai-briefing-dashboard
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: API_URL
+        sync: false
+      - key: API_KEY
+        sync: false
+      - key: DASHBOARD_PASSWORD
+        sync: false

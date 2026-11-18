@@ -1,0 +1,792 @@
+{
+  "dedup": [
+    {
+      "id": "same-story-two-outlets",
+      "articles": [
+        {
+          "id": "a1",
+          "source": "BBC World",
+          "title": "Earthquake strikes northern Japan, tsunami warning issued",
+          "summary": "A powerful earthquake hit the coast of northern Japan on Tuesday and authorities issued a tsunami warning."
+        },
+        {
+          "id": "a2",
+          "source": "The Guardian",
+          "title": "Tsunami warning after powerful earthquake hits northern Japan",
+          "summary": "Authorities warned of a tsunami after a strong earthquake struck the northern coast of Japan."
+        },
+        {
+          "id": "a3",
+          "source": "TechCrunch",
+          "title": "OpenAI unveils new model for developers",
+          "summary": "The company released a new model with lower prices aimed at developers building apps."
+        }
+      ],
+      "expected_groups": [
+        [
+          "a1",
+          "a2"
+        ],
+        [
+          "a3"
+        ]
+      ]
+    },
+    {
+      "id": "same-topic-different-stories",
+      "articles": [
+        {
+          "id": "b1",
+          "source": "Dawn",
+          "title": "Pakistan beat India in Asia Cup final",
+          "summary": "Pakistan won the final by five wickets in front of a packed stadium."
+        },
+        {
+          "id": "b2",
+          "source": "BBC World",
+          "title": "Floods displace thousands of people in Sindh",
+          "summary": "Heavy rain has forced thousands of families to leave their homes in southern Pakistan."
+        },
+        {
+          "id": "b3",
+          "source": "Dawn",
+          "title": "Flood victims in Sindh wait for relief as water levels rise",
+          "summary": "Thousands of displaced families in Sindh are waiting for food and shelter as rivers keep rising."
+        }
+      ],
+      "expected_groups": [
+        [
+          "b1"
+        ],
+        [
+          "b2",
+          "b3"
+        ]
+      ]
+    },
+    {
+      "id": "all-different",
+      "articles": [
+        {
+          "id": "c1",
+          "source": "TechCrunch",
+          "title": "Startup raises 50 million dollars for battery recycling",
+          "summary": "The company plans to open two new plants next year."
+        },
+        {
+          "id": "c2",
+          "source": "The Guardian",
+          "title": "Parliament votes on new housing bill",
+          "summary": "Members voted late on Wednesday after a long debate."
+        },
+        {
+          "id": "c3",
+          "source": "Dawn",
+          "title": "Karachi braces for heatwave this week",
+          "summary": "The weather office expects temperatures above 40 degrees."
+        }
+      ],
+      "expected_groups": [
+        [
+          "c1"
+        ],
+        [
+          "c2"
+        ],
+        [
+          "c3"
+        ]
+      ]
+    },
+    {
+      "id": "three-outlets-one-story",
+      "articles": [
+        {
+          "id": "d1",
+          "source": "BBC World",
+          "title": "Central bank raises interest rates to 5 percent",
+          "summary": "The bank said the increase was needed to bring inflation down."
+        },
+        {
+          "id": "d2",
+          "source": "The Guardian",
+          "title": "Interest rates rise to 5 percent as central bank fights inflation",
+          "summary": "Borrowers face higher costs after the central bank raised rates again."
+        },
+        {
+          "id": "d3",
+          "source": "Dawn",
+          "title": "Central bank lifts interest rates to 5 percent",
+          "summary": "The decision aims to cut inflation but will raise loan costs."
+        }
+      ],
+      "expected_groups": [
+        [
+          "d1",
+          "d2",
+          "d3"
+        ]
+      ]
+    },
+    {
+      "id": "trap-same-words-different-cricket-stories",
+      "articles": [
+        {
+          "id": "e1",
+          "source": "Dawn",
+          "title": "Pakistan cricket team arrives in Australia for series",
+          "summary": "The squad will play three Tests and five one-day matches."
+        },
+        {
+          "id": "e2",
+          "source": "BBC World",
+          "title": "Pakistan cricket board names new chairman",
+          "summary": "The appointment follows months of disagreement over the leadership."
+        }
+      ],
+      "expected_groups": [
+        [
+          "e1"
+        ],
+        [
+          "e2"
+        ]
+      ]
+    },
+    {
+      "id": "trap-bank-karachi",
+      "articles": [
+        {
+          "id": "f1",
+          "source": "Dawn",
+          "title": "Bank robbery in Karachi leaves two injured",
+          "summary": "Police say two armed men fled with cash."
+        },
+        {
+          "id": "f2",
+          "source": "The Guardian",
+          "title": "Karachi bank launches new savings account",
+          "summary": "The account offers higher returns for students."
+        }
+      ],
+      "expected_groups": [
+        [
+          "f1"
+        ],
+        [
+          "f2"
+        ]
+      ]
+    },
+    {
+      "id": "apple-charger-recall",
+      "articles": [
+        {
+          "id": "g1",
+          "source": "TechCrunch",
+          "title": "Apple recalls charger over overheating risk",
+          "summary": "Customers are asked to stop using the affected chargers."
+        },
+        {
+          "id": "g2",
+          "source": "The Guardian",
+          "title": "Overheating risk prompts Apple charger recall",
+          "summary": "The company will replace affected chargers for free."
+        },
+        {
+          "id": "g3",
+          "source": "Dawn",
+          "title": "Heatwave closes schools across Punjab",
+          "summary": "Classes are suspended until Monday."
+        }
+      ],
+      "expected_groups": [
+        [
+          "g1",
+          "g2"
+        ],
+        [
+          "g3"
+        ]
+      ]
+    },
+    {
+      "id": "election-result-two-outlets",
+      "articles": [
+        {
+          "id": "h1",
+          "source": "BBC World",
+          "title": "Opposition wins surprise victory in national election",
+          "summary": "Voters ended a decade of rule by the governing party."
+        },
+        {
+          "id": "h2",
+          "source": "Dawn",
+          "title": "Surprise election victory for opposition ends decade of rule",
+          "summary": "The governing party lost its majority after voters turned out in large numbers."
+        }
+      ],
+      "expected_groups": [
+        [
+          "h1",
+          "h2"
+        ]
+      ]
+    },
+    {
+      "id": "flood-evacuation-two-outlets",
+      "articles": [
+        {
+          "id": "i1",
+          "source": "BBC World",
+          "title": "Flooding forces evacuation of villages along river in Bangladesh",
+          "summary": "Thousands of people left their homes as the river kept rising."
+        },
+        {
+          "id": "i2",
+          "source": "Dawn",
+          "title": "Bangladesh villages evacuated as river floods worsen",
+          "summary": "Officials said many families moved to higher ground."
+        },
+        {
+          "id": "i3",
+          "source": "TechCrunch",
+          "title": "Startup launches app that translates meetings live",
+          "summary": "The tool supports twelve languages and works on phones."
+        }
+      ],
+      "expected_groups": [
+        [
+          "i1",
+          "i2"
+        ],
+        [
+          "i3"
+        ]
+      ]
+    },
+    {
+      "id": "court-ruling-three-outlets",
+      "articles": [
+        {
+          "id": "j1",
+          "source": "BBC World",
+          "title": "Supreme court strikes down law on online speech",
+          "summary": "Judges said the law broke constitutional protections."
+        },
+        {
+          "id": "j2",
+          "source": "The Guardian",
+          "title": "Court strikes down online speech law in landmark ruling",
+          "summary": "The decision was welcomed by campaigners."
+        },
+        {
+          "id": "j3",
+          "source": "Dawn",
+          "title": "Online speech law struck down by supreme court",
+          "summary": "The ruling ends a long legal fight."
+        }
+      ],
+      "expected_groups": [
+        [
+          "j1",
+          "j2",
+          "j3"
+        ]
+      ]
+    },
+    {
+      "id": "trap-tesla-two-stories",
+      "articles": [
+        {
+          "id": "k1",
+          "source": "The Guardian",
+          "title": "Tesla recalls vehicles over braking software fault",
+          "summary": "Owners will be told to update the software at a service centre."
+        },
+        {
+          "id": "k2",
+          "source": "TechCrunch",
+          "title": "Tesla shares jump after strong quarterly earnings",
+          "summary": "Investors reacted to record deliveries and higher profit."
+        }
+      ],
+      "expected_groups": [
+        [
+          "k1"
+        ],
+        [
+          "k2"
+        ]
+      ]
+    },
+    {
+      "id": "trap-floods-different-countries",
+      "articles": [
+        {
+          "id": "l1",
+          "source": "Dawn",
+          "title": "Floods hit Sindh villages, thousands evacuated",
+          "summary": "Rescue boats are moving families to relief camps."
+        },
+        {
+          "id": "l2",
+          "source": "BBC World",
+          "title": "Floods hit Kenya villages after heavy rain",
+          "summary": "Aid agencies say crops were destroyed across the region."
+        }
+      ],
+      "expected_groups": [
+        [
+          "l1"
+        ],
+        [
+          "l2"
+        ]
+      ]
+    }
+  ],
+  "priority": [
+    {
+      "title": "Powerful earthquake kills hundreds in coastal city",
+      "summary": "Rescue teams are searching collapsed buildings after a magnitude 7.4 quake.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Missile strike hits capital, dozens dead",
+      "summary": "Emergency services reported many casualties after an overnight attack.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Central bank raises interest rates",
+      "summary": "The decision affects mortgages and loans across the country.",
+      "expected": "High"
+    },
+    {
+      "title": "Government announces new budget with tax changes",
+      "summary": "The finance minister presented the yearly budget to parliament.",
+      "expected": "High"
+    },
+    {
+      "title": "New smartphone launched with better camera",
+      "summary": "The company says the phone ships next month.",
+      "expected": "Medium"
+    },
+    {
+      "title": "City opens new public library",
+      "summary": "The library has a children's section and a reading garden.",
+      "expected": "Medium"
+    },
+    {
+      "title": "Celebrity spotted at fashion week",
+      "summary": "The actor attended several shows this weekend.",
+      "expected": "Low"
+    },
+    {
+      "title": "Local club wins friendly football match",
+      "summary": "The match ended 2-1 in front of a small crowd.",
+      "expected": "Low"
+    },
+    {
+      "title": "Dam collapse floods town, rescuers search for survivors",
+      "summary": "Water swept through streets overnight and many residents are missing.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Passenger plane crashes shortly after take-off",
+      "summary": "Emergency crews are at the scene and survivors are being treated.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Parliament passes major healthcare reform law",
+      "summary": "The law changes how hospitals are funded nationwide.",
+      "expected": "High"
+    },
+    {
+      "title": "Stock market falls sharply as oil prices jump",
+      "summary": "Investors reacted to supply fears and the index closed much lower.",
+      "expected": "High"
+    },
+    {
+      "title": "Tech company announces new laptop lineup",
+      "summary": "The range includes three models with longer battery life.",
+      "expected": "Medium"
+    },
+    {
+      "title": "University opens new campus for engineering students",
+      "summary": "The campus has labs and a student housing block.",
+      "expected": "Medium"
+    },
+    {
+      "title": "Popular singer shares holiday photos online",
+      "summary": "The photos were posted on social media over the weekend.",
+      "expected": "Low"
+    },
+    {
+      "title": "Local bakery wins best croissant award",
+      "summary": "The bakery received the prize at a regional food fair.",
+      "expected": "Low"
+    },
+    {
+      "title": "Dam collapse floods towns, thousands missing",
+      "summary": "Rescue teams are searching flooded streets after the dam gave way overnight.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Passenger plane crashes after takeoff",
+      "summary": "Emergency crews are at the site and authorities fear many casualties.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Parliament passes controversial election law",
+      "summary": "The opposition says the changes favour the governing party.",
+      "expected": "High"
+    },
+    {
+      "title": "Major bank reports sharp rise in losses",
+      "summary": "Shares fell after the bank warned of further write-downs.",
+      "expected": "High"
+    },
+    {
+      "title": "Tech firm unveils new laptop line",
+      "summary": "The laptops go on sale next month with faster chips.",
+      "expected": "Medium"
+    },
+    {
+      "title": "City council approves new bike lanes",
+      "summary": "Construction on the first lanes starts in spring.",
+      "expected": "Medium"
+    },
+    {
+      "title": "Singer announces surprise album",
+      "summary": "The album will be released on streaming services this Friday.",
+      "expected": "Low"
+    },
+    {
+      "title": "Town holds annual kite festival",
+      "summary": "Hundreds of families gathered at the park for the event.",
+      "expected": "Low"
+    },
+    {
+      "title": "Airstrike hits hospital, dozens feared dead",
+      "summary": "Rescuers are searching the rubble of a hospital after an overnight airstrike.",
+      "expected": "Critical"
+    },
+    {
+      "title": "Central bank raises interest rates by half a point",
+      "summary": "The surprise move is expected to raise loan costs for millions of households.",
+      "expected": "High"
+    },
+    {
+      "title": "City council approves new bus route for suburbs",
+      "summary": "The route will connect two neighbourhoods to the main station from next month.",
+      "expected": "Medium"
+    },
+    {
+      "title": "Startup raises seed funding for food delivery app",
+      "summary": "The company plans to expand to three more cities next year.",
+      "expected": "Medium"
+    },
+    {
+      "title": "Annual flower festival opens in the park",
+      "summary": "Thousands of visitors are expected over the weekend.",
+      "expected": "Low"
+    },
+    {
+      "title": "Local team wins friendly cricket match",
+      "summary": "The match ended with a six wicket victory in front of a small crowd.",
+      "expected": "Low"
+    }
+  ],
+  "claims": [
+    {
+      "id": "death-toll-conflict",
+      "title": "Earthquake death toll",
+      "evidence": [
+        [
+          "BBC World",
+          "Earthquake in the north kills 12 people, officials say. Rescuers are searching rubble."
+        ],
+        [
+          "Dawn",
+          "Earthquake death toll rises to 30 in the north, rescuers say. Hundreds are injured."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "rates-consistent",
+      "title": "Central bank rates",
+      "evidence": [
+        [
+          "BBC World",
+          "Central bank raises interest rates to 5 percent to fight inflation."
+        ],
+        [
+          "The Guardian",
+          "Interest rates rise to 5 percent as the central bank tackles inflation, borrowers face higher costs."
+        ]
+      ],
+      "expected_disputed": false
+    },
+    {
+      "id": "match-winner-conflict",
+      "title": "Cricket final result",
+      "evidence": [
+        [
+          "Dawn",
+          "Pakistan beat India by five wickets in the final, the captain said after the match."
+        ],
+        [
+          "The Guardian",
+          "India beat Pakistan by five wickets in the final, the captain said after the match."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "fire-detail-only",
+      "title": "Factory fire",
+      "evidence": [
+        [
+          "BBC World",
+          "Fire at a Lahore factory injures five people, police said."
+        ],
+        [
+          "Dawn",
+          "Lahore factory fire leaves five people hurt, rescue officials say; the fire brigade stayed at the scene for hours."
+        ]
+      ],
+      "expected_disputed": false
+    },
+    {
+      "id": "strike-length-conflict",
+      "title": "Port strike length",
+      "evidence": [
+        [
+          "BBC World",
+          "Dock workers begin a 48-hour strike at the port, the union said on Monday."
+        ],
+        [
+          "Dawn",
+          "Dock workers begin a 72-hour strike at the port, the union said on Monday."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "bill-vote-conflict",
+      "title": "Parliament vote count",
+      "evidence": [
+        [
+          "The Guardian",
+          "Parliament passes the housing bill by 210 votes to 140 after a long debate."
+        ],
+        [
+          "Dawn",
+          "Parliament passes the housing bill by 190 votes to 150 after a long debate."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "launch-consistent",
+      "title": "Satellite launch",
+      "evidence": [
+        [
+          "BBC World",
+          "A rocket carrying a weather satellite lifted off on Tuesday and reached orbit."
+        ],
+        [
+          "TechCrunch",
+          "The weather satellite reached orbit after its rocket launched on Tuesday, the agency said."
+        ]
+      ],
+      "expected_disputed": false
+    },
+    {
+      "id": "school-closure-detail-only",
+      "title": "School closures",
+      "evidence": [
+        [
+          "Dawn",
+          "Schools in the city will stay closed on Friday because of heavy smog, officials said."
+        ],
+        [
+          "BBC World",
+          "City schools close on Friday due to heavy smog, officials said, and parents were told by text message."
+        ]
+      ],
+      "expected_disputed": false
+    },
+    {
+      "id": "flood-damage-conflict",
+      "title": "Flood damage estimate",
+      "evidence": [
+        [
+          "BBC World",
+          "Floods destroy 500 homes in the south, officials say."
+        ],
+        [
+          "Dawn",
+          "Floods damage about 5,000 homes in the south, local authorities say."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "minister-resigns-conflict",
+      "title": "Minister resignation",
+      "evidence": [
+        [
+          "The Guardian",
+          "Finance minister resigns after the budget row, his office confirmed."
+        ],
+        [
+          "Dawn",
+          "Finance minister denies resigning and says he will stay in office."
+        ]
+      ],
+      "expected_disputed": true
+    },
+    {
+      "id": "rate-decision-consistent",
+      "title": "Interest rate decision",
+      "evidence": [
+        [
+          "BBC World",
+          "The central bank raised rates by 0.5 points on Thursday."
+        ],
+        [
+          "The Guardian",
+          "On Thursday the central bank lifted interest rates by half a point."
+        ]
+      ],
+      "expected_disputed": false
+    }
+  ],
+  "answers": {
+    "docs": [
+      {
+        "id": "d1",
+        "source": "BBC World",
+        "link": "https://eval.example/d1",
+        "title": "Central bank raises interest rate to five percent",
+        "text": "The central bank raised its main interest rate to five percent to bring inflation down. Mortgage holders face higher monthly repayments."
+      },
+      {
+        "id": "d2",
+        "source": "Dawn",
+        "link": "https://eval.example/d2",
+        "title": "Floods in Sindh displace thousands of families",
+        "text": "Heavy monsoon rain caused flooding along the Indus river in Sindh. Thousands of families moved to relief camps."
+      },
+      {
+        "id": "d3",
+        "source": "TechCrunch",
+        "link": "https://eval.example/d3",
+        "title": "Startup unveils solar powered battery for homes",
+        "text": "A startup unveiled a solar battery that stores electricity for households. The device ships to customers next spring."
+      },
+      {
+        "id": "d4",
+        "source": "The Guardian",
+        "link": "https://eval.example/d4",
+        "title": "Parliament passes new housing bill after long debate",
+        "text": "Members of parliament approved the housing bill on Wednesday. The law limits rent increases in large cities."
+      },
+      {
+        "id": "d5",
+        "source": "Dawn",
+        "link": "https://eval.example/d5",
+        "title": "Pakistan cricket team arrives in Australia for Test series",
+        "text": "The squad landed in Perth ahead of three Tests. The captain said preparation camps went well."
+      },
+      {
+        "id": "d6",
+        "source": "BBC World",
+        "link": "https://eval.example/d6",
+        "title": "Earthquake strikes northern Japan, tsunami warning issued",
+        "text": "A strong earthquake hit the northern coast of Japan and authorities issued a tsunami warning. Rescue teams checked damaged buildings."
+      }
+    ],
+    "cases": [
+      {
+        "id": "rate-level",
+        "question": "What interest rate did the central bank set?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d1"
+        ]
+      },
+      {
+        "id": "flood-river",
+        "question": "Which river caused flooding in Sindh?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d2"
+        ]
+      },
+      {
+        "id": "battery-ship",
+        "question": "When will the solar battery ship?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d3"
+        ]
+      },
+      {
+        "id": "housing-limit",
+        "question": "What does the housing bill limit?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d4"
+        ]
+      },
+      {
+        "id": "cricket-landing",
+        "question": "Where did the cricket squad land?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d5"
+        ]
+      },
+      {
+        "id": "tsunami-warning",
+        "question": "Did a tsunami warning follow the earthquake in Japan?",
+        "answerable": true,
+        "expected_doc_ids": [
+          "d6"
+        ]
+      },
+      {
+        "id": "nobel",
+        "question": "Who won the Nobel prize in chemistry?",
+        "answerable": false,
+        "expected_doc_ids": [],
+        "kind": "no_match"
+      },
+      {
+        "id": "gold-price",
+        "question": "What is the price of gold today?",
+        "answerable": false,
+        "expected_doc_ids": [],
+        "kind": "no_match"
+      },
+      {
+        "id": "tokyo-residents",
+        "question": "How many residents does Tokyo have?",
+        "answerable": false,
+        "expected_doc_ids": [],
+        "kind": "no_match"
+      },
+      {
+        "id": "bank-chairman",
+        "question": "Who is the chairman of the central bank?",
+        "answerable": false,
+        "expected_doc_ids": [],
+        "kind": "near_miss"
+      }
+    ]
+  }
+}
