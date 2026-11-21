@@ -145,11 +145,11 @@ app/
   collectors/  rss, youtube
   core/        config, database, models, storage, dedup, embeddings,
                search_store, interests, mailer, telegram_notifier, story, video,
-               users, tokens, personalize, migrate, ratelimit, logging_setup,
+               users, tokens, personalize, migrate, ratelimit, ratelimit_store, safe_fetch, logging_setup,
                security_checks, maintenance, user_sources, category, oracle_stats, runs, bookmarks, reads, source_health
   graph/       briefing (daily pipeline), alerts (breaking alerts)
 dashboard/     Streamlit app, accounts UI, API client, helpers
-dashboard/oracle/  ORACLE dashboard (theme, components, pages); entry point oracle_app.py
+dashboard/oracle/  ORACLE dashboard (theme, components, pages, pdf_export); entry point oracle_app.py
 scripts/       setup.ps1, setup.sh, sync_env_example.py, dedupe_stories.py
 tests/         automated tests (all external services are faked)
 evals/         labelled dataset and quality evaluation
