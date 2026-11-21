@@ -2,7 +2,7 @@
 
 > An autonomous multi-agent AI system that reads news and YouTube for you, analyzes everything with Google Gemini, and delivers a prioritized daily briefing, breaking-news alerts (email and Telegram) and a weekly intelligence report. It also ships a REST API, a Streamlit dashboard and a research chat that answers questions from the collected news with source citations (RAG).
 
-**Status:** working end to end, deployed on Render with GitHub Actions scheduling, covered by over 600 automated tests that all run offline (87% coverage), with lint and a coverage gate in CI. Accounts, personal feeds, per-user digests and migrations are in place. Login rate limiting, JSON logs with request IDs and startup security checks are in place. Retention cleanup and SQLite backups are in place. Users can add their own sources. Next: nothing required (public demo deployment and screenshots skipped by choice). The ORACLE dashboard upgrade is in progress (see the ORACLE upgrade section).
+**Status:** working end to end, deployed on Render with GitHub Actions scheduling, covered by over 620 automated tests that all run offline, with lint and a coverage gate in CI. Accounts, personal feeds, per-user digests and migrations are in place. Login rate limiting, JSON logs with request IDs and startup security checks are in place. Retention cleanup and SQLite backups are in place. Users can add their own sources. Next: nothing required (public demo deployment and screenshots skipped by choice). The ORACLE dashboard upgrade is in progress (see the ORACLE upgrade section).
 
 ## Project summary
 
