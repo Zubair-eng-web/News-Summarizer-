@@ -97,3 +97,5 @@ youtube-transcript-api==1.2.5
 zstandard==0.25.0
 alembic==1.20.1
 Mako==1.4.3
+
+fpdf2==2.9.0

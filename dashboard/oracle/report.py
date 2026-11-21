@@ -153,10 +153,18 @@ def render() -> None:
         ui.empty_state("Nothing in this period", "Run a digest from the sidebar first.")
         return
     markdown = build_markdown(title, stories, videos, generated)
-    c1, c2 = st.columns(2)
+    c1, c2, c3 = st.columns(3)
     stamp = datetime.utcnow().strftime("%Y%m%d")
     c1.download_button("Download Markdown", markdown, file_name=f"oracle_report_{stamp}.md",
                        mime="text/markdown", key="rep_md")
     c2.download_button("Download HTML (print to PDF)", build_html(title, stories, videos, generated),
                        file_name=f"oracle_report_{stamp}.html", mime="text/html", key="rep_html")
+    try:
+        from dashboard.oracle.pdf_export import build_pdf
+
+        c3.download_button("Download PDF", build_pdf(title, stories, videos, generated),
+                           file_name=f"oracle_report_{stamp}.pdf", mime="application/pdf",
+                           key="rep_pdf")
+    except Exception:
+        c3.caption("PDF export needs the fpdf2 package.")
     st.markdown(markdown)

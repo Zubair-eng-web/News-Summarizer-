@@ -1,4 +1,5 @@
 """In-memory sliding-window rate limiter (ek process ke liye)."""
+import os
 import threading
 import time
 from collections import deque
@@ -41,6 +42,13 @@ def hit(key: str, limit: int, window: float) -> float:
     """Shared limiter. limit <= 0 ho to rate limiting band hai."""
     if limit <= 0:
         return 0.0
+    if os.getenv("RATE_LIMIT_PERSISTENT", "").strip().lower() in ("1", "true", "yes"):
+        try:
+            from app.core import ratelimit_store
+
+            return ratelimit_store.hit(key, limit, window)
+        except Exception as e:  # database band ho to memory limiter par wapas
+            print(f"[WARN] Persistent rate limit failed, using memory: {type(e).__name__}")
     limiter = _limiters.setdefault((limit, window), RateLimiter(limit, window))
     return limiter.hit(key)
 

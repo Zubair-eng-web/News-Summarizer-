@@ -2,7 +2,7 @@
 
 > An autonomous multi-agent AI system that reads news and YouTube for you, analyzes everything with Google Gemini, and delivers a prioritized daily briefing, breaking-news alerts (email and Telegram) and a weekly intelligence report. It also ships a REST API, a Streamlit dashboard and a research chat that answers questions from the collected news with source citations (RAG).
 
-**Status:** working end to end, deployed on Render with GitHub Actions scheduling, covered by over 600 automated tests that all run offline (87% coverage), with lint and a coverage gate in CI. Accounts, personal feeds, per-user digests and migrations are in place. Login rate limiting, JSON logs with request IDs and startup security checks are in place. Retention cleanup and SQLite backups are in place. Users can add their own sources. Next: deploy the public demo and screenshots. The ORACLE dashboard upgrade is in progress (see the ORACLE upgrade section).
+**Status:** working end to end, deployed on Render with GitHub Actions scheduling, covered by over 600 automated tests that all run offline (87% coverage), with lint and a coverage gate in CI. Accounts, personal feeds, per-user digests and migrations are in place. Login rate limiting, JSON logs with request IDs and startup security checks are in place. Retention cleanup and SQLite backups are in place. Users can add their own sources. Next: nothing required (public demo deployment and screenshots skipped by choice). The ORACLE dashboard upgrade is in progress (see the ORACLE upgrade section).
 
 ## Project summary
 
@@ -121,7 +121,7 @@ Set these in the Render service environment (never commit them):
 | `AUTH_RATE_LIMIT`, `AUTH_RATE_WINDOW_SECONDS` | Defaults: 10 attempts per 300 seconds, `0` turns it off. The dashboard calls the API from one IP, so `render.yaml` sets 30 until the dashboard forwards client IPs |
 | `RETENTION_DAYS` | Default 90, `0` turns cleanup off |
 
-The server logs one JSON line per request (method, path, status, duration, `request_id`) and answers every request with an `X-Request-ID` header, so a user can quote it when reporting a problem. Startup warns about unsafe settings. The rate limiter lives in memory: it resets on restart and is per instance.
+The server logs one JSON line per request (method, path, status, duration, `request_id`) and answers every request with an `X-Request-ID` header, so a user can quote it when reporting a problem. Startup warns about unsafe settings. The rate limiter lives in memory by default: it resets on restart and is per instance. Set `RATE_LIMIT_PERSISTENT=true` to keep hits in the database (needs PostgreSQL on Render; falls back to memory if the database fails).
 
 ## Evaluation
 
@@ -131,7 +131,7 @@ python -m evals.run_eval --priority   # priority accuracy (calls Gemini)
 python -m evals.run_eval --claims     # does the claim check catch contradicting outlets (calls Gemini)
 ```
 
-The labelled set lives in `evals/dataset.json`. Latest results with the real model (step 60): dedup 12 cases, precision and recall 1.0; claims 11 cases, accuracy 1.0; priority 30 cases, accuracy 1.0 (Critical precision and recall 1.0); answers 10 cases, answerable accuracy, retrieval hit rate and refusal rate all 1.0. The step 58 prompt change fixed the three local-news cases that used to be rated Low. The sets are small, so 1.0 means correct on these cases, not always correct. It is small on purpose and meant to grow: add a case whenever the system gets something wrong. Run it before and after changing prompts, ranking or dedup.
+The labelled set lives in `evals/dataset.json`. Latest results with the real model (step 70): dedup 12 cases, precision and recall 1.0; claims 11 cases, accuracy 1.0; priority 30 cases, accuracy 1.0 (Critical precision and recall 1.0); answers 10 cases, answerable accuracy, retrieval hit rate and refusal rate all 1.0. The step 58 prompt change fixed the three local-news cases that used to be rated Low. The sets are small, so 1.0 means correct on these cases, not always correct. It is small on purpose and meant to grow: add a case whenever the system gets something wrong. Run it before and after changing prompts, ranking or dedup.
 
 ## Project structure
 
@@ -263,7 +263,7 @@ Each phase has a clear exit criterion. A phase is done only when its criterion i
 |---|------|-----------|
 | 4.1 | Demo screenshots and short video (skipped by choice) | Not planned: the dashboard can be tried through the live demo instead |
 | 4.2 | License and contributing guide (done) | LICENSE and CONTRIBUTING files are added |
-| 4.3 | Public live demo (`DEMO_MODE` done, deployment open) | A read-only demo instance is available |
+| 4.3 | Public live demo (`DEMO_MODE` done, deployment skipped by choice) | A read-only demo instance is available |
 
 ## Design decisions
 
@@ -283,7 +283,7 @@ Each phase has a clear exit criterion. A phase is done only when its criterion i
 - Emails are sent through Gmail SMTP with an App Password. Per-user digests need a provider that can send to any address (Gmail SMTP works; Resend's test sender only reaches your own address).
 - Source credibility and the claim check are LLM and rule based, not a full fact check.
 - Priority and sentiment are AI judgments and can occasionally be wrong.
-- Custom sources are fetched by the server, so URLs are limited to public http(s) addresses on ports 80 and 443 and re-checked before each run. Redirects and DNS rebinding are not fully covered. Custom sources also count as sources in the credibility label.
+- Custom sources are fetched by the server, so URLs are limited to public http(s) addresses on ports 80 and 443 and re-checked before each run. Redirects are re-checked at every hop (step 96); DNS rebinding between the check and the connection is reduced but not fully closed (it would need IP pinning). Custom sources also count as sources in the credibility label.
 
 ## License
 
@@ -310,7 +310,7 @@ All numbers come from the real API. Parts that are not monitored yet are labelle
 | 4 | AI Research and Research Chat upgrade | Done |
 | 5 | Analytics, Alerts and Sources Management (backend endpoints) | Done |
 | 6 | Missing functions: export, read/unread, daily report, story sharing | Done |
-| 7 | Final tests, bug fixing, screenshots and docs | Done |
+| 7 | Final tests, bug fixing and docs (screenshots skipped by choice) | Done |
 
 ### ORACLE steps
 
@@ -339,10 +339,13 @@ All numbers come from the real API. Parts that are not monitored yet are labelle
 | 91 | Story sharing | Share box on every story card: text to copy (title, short summary, first safe link) and an email link |
 | 92 | Final checks | 600 offline tests pass, ruff is clean, README synced with the code; screenshots were skipped by choice |
 | 93 | API key rotation | `api_keys` table (migration `0010`); the API Keys page adds or removes extra Gemini keys (shown only as the last 4 characters, needs `API_KEY`); on a 429 quota error the client switches to the next key and the used-up key rests for 30 minutes |
+| 96 | Safe custom-feed fetch | `app/core/safe_fetch.py` follows redirects by hand and re-checks every hop with `is_public_url`, limits redirects (3) and size (2 MB); custom feeds in `rss.py` use it, built-in feeds are unchanged |
+| 97 | Persistent rate limiter | `RATE_LIMIT_PERSISTENT=true` stores hits in a `rate_hits` table (`app/core/ratelimit_store.py`), so limits survive restarts; any database error falls back to the in-memory limiter |
+| 98 | PDF export | Intelligence Report page has a Download PDF button (`dashboard/oracle/pdf_export.py`, fpdf2, built-in fonts: non-Latin text shows as `?`) |
 
 ### Planned next
 
-- Phase 6 is done (source health, read/unread, report page with Markdown and HTML export, story sharing). Direct PDF export is optional and needs `fpdf2`
+- Phase 6 is done (source health, read/unread, report page with Markdown and HTML export, story sharing). Direct PDF export is done (step 98, needs `fpdf2`)
 - Thumbnails, categories and bookmarks are done (steps 74-77)
 - Read-only endpoints are done (`/oracle/*`, step 81) and existing endpoints are unchanged
 - Map of global news flow only if real location data exists

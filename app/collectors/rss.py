@@ -8,6 +8,7 @@ import feedparser
 from bs4 import BeautifulSoup
 
 from app.core import source_health
+from app.core.safe_fetch import fetch_public
 from app.core.user_sources import load_extra_feeds
 
 socket.setdefaulttimeout(10)
@@ -82,12 +83,21 @@ def image_extra(entry) -> dict:
     return {"image": url} if url else {}
 
 
-def fetch_feed(source: str, url: str, limit: int = 10) -> list[Article]:
+def _parse(url: str, safe: bool, fetcher):
+    """safe=True (custom feeds): har redirect hop public check hota hai."""
+    if safe:
+        return feedparser.parse((fetcher or fetch_public)(url))
+    return feedparser.parse(url)
+
+
+def fetch_feed(
+    source: str, url: str, limit: int = 10, safe: bool = False, fetcher=None
+) -> list[Article]:
     """Ek feed se articles laata hai. Fail ho to khali list return karta hai."""
     feed = None
     for attempt in range(2):  # ek baar retry: temporary network hiccup se bachne ke liye
         try:
-            feed = feedparser.parse(url)
+            feed = _parse(url, safe, fetcher)
         except Exception as e:
             print(f"[ERROR] {source}: {e}")
             feed = None
@@ -121,7 +131,10 @@ def collect_all(limit_per_feed: int = 10, extra_feeds: dict | None = None) -> li
     feeds.update(load_extra_feeds() if extra_feeds is None else extra_feeds)
     all_articles: list[Article] = []
     for source, url in feeds.items():
-        got = fetch_feed(source, url, limit_per_feed)
+        if source in FEEDS:
+            got = fetch_feed(source, url, limit_per_feed)
+        else:
+            got = fetch_feed(source, url, limit_per_feed, safe=True)
         if got:
             source_health.record(source, "rss", True, len(got))
         else:

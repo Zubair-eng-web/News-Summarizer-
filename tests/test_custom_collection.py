@@ -15,6 +15,7 @@ def test_collect_all_includes_extra_feeds(monkeypatch):
         "published_parsed": (2026, 1, 1, 10, 0, 0, 0, 1, 0),
     }
     monkeypatch.setattr(rss.feedparser, "parse", lambda url: FakeFeed([entry]))
+    monkeypatch.setattr(rss, "fetch_public", lambda url: b"<rss/>")
     articles = rss.collect_all(
         limit_per_feed=1, extra_feeds={"Mine (custom)": "https://mine.test/rss"}
     )
